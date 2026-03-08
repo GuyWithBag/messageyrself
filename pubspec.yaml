@@ -1,0 +1,35 @@
+name: messageyrself
+description: "A local-first, chat-style note-taking app."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: 6.1.2
+  flutter_hooks: 0.20.5
+  hive_ce: 2.19.3
+  hive_ce_flutter: 2.3.4
+  go_router: 17.1.0
+  uuid: 4.5.3
+  record: 6.2.0
+  just_audio: 0.10.5
+  permission_handler: 12.0.1
+  path_provider: 2.1.5
+  path: 1.9.1
+  google_fonts: 8.0.2
+  file_picker: 10.3.10
+  cupertino_icons: 1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  hive_ce_generator: ^1.0.0
+  build_runner: ^6.0.0
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
