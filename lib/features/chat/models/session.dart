@@ -7,12 +7,7 @@
 
 import 'dart:math';
 
-import 'package:hive_ce/hive.dart';
-
-part 'session.g.dart';
-
-@HiveType(typeId: 1)
-class Session extends HiveObject {
+class Session {
   final String id;
   final String notebookId;
   final String title;

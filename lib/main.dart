@@ -8,7 +8,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'core/router/app_router.dart';
+import 'features/chat/providers/chat_provider.dart';
+import 'features/chat/providers/voice_provider.dart';
+import 'features/notebooks/providers/notebook_provider.dart';
+import 'features/settings/providers/settings_provider.dart';
+import 'features/tags/providers/tag_provider.dart';
 import 'services/hive_service.dart';
+import 'services/voice_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,39 +23,62 @@ Future<void> main() async {
   final hiveService = HiveService();
   await hiveService.init();
 
-  runApp(MessageYrselfApp(hiveService: hiveService));
+  final settingsProvider = SettingsProvider(hiveService);
+  await settingsProvider.loadSettings();
+
+  runApp(
+    MessageYrselfApp(
+      hiveService: hiveService,
+      settingsProvider: settingsProvider,
+    ),
+  );
 }
 
 class MessageYrselfApp extends StatelessWidget {
   final HiveService hiveService;
+  final SettingsProvider settingsProvider;
 
-  const MessageYrselfApp({super.key, required this.hiveService});
+  const MessageYrselfApp({
+    super.key,
+    required this.hiveService,
+    required this.settingsProvider,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Providers will be added here as they are built.
-    // For now, provide HiveService via Provider.value.
-    return Provider<HiveService>.value(
-      value: hiveService,
-      child: MaterialApp(
-        title: 'MessageYrself',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0A7CFF)),
-          useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        Provider<HiveService>.value(value: hiveService),
+        ChangeNotifierProvider<SettingsProvider>.value(
+          value: settingsProvider,
         ),
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFF0A7CFF),
-            brightness: Brightness.dark,
-          ),
-          useMaterial3: true,
+        ChangeNotifierProvider<TagProvider>(
+          create: (context) => TagProvider(hiveService),
         ),
-        home: const Scaffold(
-          body: Center(
-            child: Text('MessageYrself — core initialized'),
+        ChangeNotifierProvider<ChatProvider>(
+          create: (context) => ChatProvider(
+            hiveService,
+            context.read<TagProvider>(),
           ),
         ),
+        ChangeNotifierProvider<NotebookProvider>(
+          create: (context) => NotebookProvider(hiveService),
+        ),
+        ChangeNotifierProvider<VoiceProvider>(
+          create: (context) => VoiceProvider(VoiceService()),
+        ),
+      ],
+      child: Consumer<SettingsProvider>(
+        builder: (context, settings, _) {
+          return MaterialApp.router(
+            title: 'MessageYrself',
+            debugShowCheckedModeBanner: false,
+            theme: settings.lightTheme,
+            darkTheme: settings.darkTheme,
+            themeMode: settings.themeMode,
+            routerConfig: appRouter,
+          );
+        },
       ),
     );
   }

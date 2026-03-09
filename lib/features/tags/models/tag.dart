@@ -7,12 +7,7 @@
 
 import 'dart:math';
 
-import 'package:hive_ce/hive.dart';
-
-part 'tag.g.dart';
-
-@HiveType(typeId: 2)
-class Tag extends HiveObject {
+class Tag {
   final String id;
   final String label;
   final int colorArgb;

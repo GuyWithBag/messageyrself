@@ -7,12 +7,7 @@
 
 import 'dart:math';
 
-import 'package:hive_ce/hive.dart';
-
-part 'user_preset.g.dart';
-
-@HiveType(typeId: 5)
-class UserPreset extends HiveObject {
+class UserPreset {
   final String id;
   final String name;
   final DateTime createdAt;

@@ -5,14 +5,9 @@
 // HOOKS: none
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-import 'package:hive_ce/hive.dart';
-
 import '../../../core/constants/app_colors.dart';
 
-part 'app_settings.g.dart';
-
-@HiveType(typeId: 4)
-class AppSettings extends HiveObject {
+class AppSettings {
   final String activePresetId;
   final String themeMode;
   final String fontFamily;

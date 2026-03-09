@@ -15,6 +15,7 @@ import '../features/notebooks/models/notebook.dart';
 import '../features/settings/models/app_settings.dart';
 import '../features/settings/models/user_preset.dart';
 import '../features/tags/models/tag.dart';
+import '../hive_registrar.dart';
 
 /// Manages Hive CE initialization, adapter registration, and box access.
 ///
@@ -35,7 +36,6 @@ class HiveService {
     try {
       final dir = await getApplicationDocumentsDirectory();
       Hive.init('${dir.path}/messageyrself_hive');
-
       Hive.registerAdapter(MessageAdapter());
       Hive.registerAdapter(SessionAdapter());
       Hive.registerAdapter(TagAdapter());

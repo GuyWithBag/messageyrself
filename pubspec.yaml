@@ -23,12 +23,13 @@ dependencies:
   google_fonts: 8.0.2
   file_picker: 10.3.10
   cupertino_icons: 1.0.8
+  rename_app: ^1.6.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_ce_generator: ^1.0.0
-  build_runner: ^6.0.0
+  build_runner: ^2.4.12
   flutter_lints: ^6.0.0
 
 flutter:

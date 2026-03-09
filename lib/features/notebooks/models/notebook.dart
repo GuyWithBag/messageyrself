@@ -7,12 +7,7 @@
 
 import 'dart:math';
 
-import 'package:hive_ce/hive.dart';
-
-part 'notebook.g.dart';
-
-@HiveType(typeId: 3)
-class Notebook extends HiveObject {
+class Notebook {
   final String id;
   final String title;
   final int colorArgb;
