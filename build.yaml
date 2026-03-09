@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      hive_ce_generator|hive_registrar_generator:
+        enabled: false
+      hive_ce_generator|hive_registrar_intermediate_generator:
+        enabled: false
